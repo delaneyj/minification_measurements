@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Datastar Test</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <script>
+        window.loadStartTime = performance.now();
+    </script>
+    <script type="module" src="../js/datastar.js"></script>
+    <script>
+        // Datastar loaded
+        window.addEventListener('load', function() {
+            window.loadEndTime = performance.now();
+            window.totalLoadTime = window.loadEndTime - window.loadStartTime;
+            
+            // Send timing data to parent window
+            if (window.parent !== window) {
+                window.parent.postMessage({
+                    type: 'loadComplete',
+                    version: 'datastar',
+                    time: window.totalLoadTime
+                }, '*');
+            }
+        });
+    </script>
+</head>
+<body class="test-page">
+        <h2>Datastar Loaded (Minified)</h2>
+        <p>This page loads the minified Datastar library - an all-in-one solution</p>
+        
+        <div class="stats-container-spaced">
+            <h3>Library Details:</h3>
+            <ul>
+                <li>Datastar: <span class="status-loaded">✓ Loaded</span> (39.1 KB)</li>
+            </ul>
+            <p><strong>Features:</strong> Hypermedia First Framework</p>
+        </div>
+        
+        <!-- Datastar test (similar to Alpine.js syntax) -->
+        <div data-star-signals='{"message": "Datastar is working!"}' class="test-demo">
+            <p data-star-text="$message"></p>
+        </div>
+        
+        <div class="stats-container-spaced">
+            <p>Datastar provides hypermedia capabilities with reactive data binding in a single, smaller package</p>
+        </div>
+</body>
+</html>

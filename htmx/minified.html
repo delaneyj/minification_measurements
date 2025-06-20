@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTMX Minified Test</title>
+    <script>
+        window.loadStartTime = performance.now();
+    </script>
+    <script src="../js/htmx.min.js"></script>
+    <script>
+        htmx.onLoad(function() {
+            window.loadEndTime = performance.now();
+            window.totalLoadTime = window.loadEndTime - window.loadStartTime;
+            
+            // Send timing data to parent window
+            if (window.parent !== window) {
+                window.parent.postMessage({
+                    type: 'loadComplete',
+                    version: 'minified',
+                    time: window.totalLoadTime
+                }, '*');
+            }
+        });
+    </script>
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body class="test-page">
+    <h2>HTMX Minified Version Loaded</h2>
+    <p>This page loads the minified version of HTMX.</p>
+    <div>
+        <p>HTMX is <span class="status-loaded">loaded</span> and ready!</p>
+        <p>Version: <strong>Minified</strong> (59.0 KB)</p>
+    </div>
+</body>
+</html>

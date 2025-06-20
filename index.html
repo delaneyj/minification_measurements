@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minification Measurements</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%2358a6ff'/><text x='16' y='24' text-anchor='middle' fill='black' font-family='Arial' font-size='20' font-weight='bold'>M</text></svg>">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="warning-banner">
+        ⚡ For accurate testing: Open DevTools → Disable cache → Network tab → Throttle to "Slow 4G" or "Fast 3G" to simulate real mobile conditions
+    </div>
+    <div class="container">
+        <h1>Minification Measurements</h1>
+        <p class="subtitle">Compare load times between minified and unminified JavaScript libraries</p>
+        <p class="subtitle-highlight">Real Server, Real World Numbers - Including Brotli Compression</p>
+        
+        <div class="library-grid">
+            <div class="library-card">
+                <h2>HTMX</h2>
+                <p>Measure the performance difference between minified and unminified HTMX</p>
+                <a href="htmx/">View Comparison</a>
+            </div>
+            
+            <div class="library-card">
+                <h2>HTMX + Idiomorph + Alpine.js</h2>
+                <p>Compare load times when using all three libraries together</p>
+                <a href="htmx_idiomorph_alpine/">View Comparison</a>
+            </div>
+            
+            <div class="library-card">
+                <h2>HTMX Stack vs Datastar</h2>
+                <p>Compare unminified 3-library stack vs minified all-in-one Datastar</p>
+                <a href="htmx_idiomorph_alpine_vs_datastar/">View Comparison</a>
+            </div>
+        </div>
+        
+        <div class="text-center text-muted mt-50">
+            <p>This project demonstrates the importance of minification in web development by showing real-time load time comparisons.</p>
+        </div>
+        
+        <div class="info-section">
+            <h2>Why This Matters: Data Over Opinions</h2>
+            
+            <p>
+                This project provides real-world context to the <a href="https://x.com/anders_murphy/status/1936032799250686323" target="_blank">extended Twitter thread</a> 
+                about JavaScript bundle sizes and minification. While opinions from famous developers are interesting, 
+                <strong>actual metrics tell the real story</strong>.
+            </p>
+            
+            <p>
+                <strong>Why initial download size matters:</strong>
+            </p>
+            
+            <ul>
+                <li><strong>First impressions count:</strong> <a href="https://web.dev/articles/fcp" target="_blank">First Contentful Paint (FCP)</a> directly impacts user perception and bounce rates</li>
+                <li><strong>Mobile networks:</strong> Many users worldwide still rely on 3G/4G with data caps and slower speeds</li>
+                <li><strong>Core Web Vitals:</strong> Google uses <a href="https://web.dev/articles/lcp" target="_blank">Largest Contentful Paint (LCP)</a> as a ranking factor, which is affected by JavaScript download time</li>
+                <li><strong>Parse/compile time:</strong> Larger files take longer to parse and execute, blocking the main thread</li>
+                <li><strong>Cache misses:</strong> First-time visitors and cache invalidation mean the full download happens more often than we think</li>
+            </ul>
+            
+            <p>
+                It's surprising when library authors who advocate for simplicity don't prioritize minification. 
+                While philosophies like "locality of behavior" and sending HTML over the wire are excellent for reducing complexity, 
+                <strong>why not also reduce the bytes?</strong> A 63.5% size reduction (or 50% with brotli) is significant, 
+                especially when every millisecond counts for user experience.
+            </p>
+            
+            <p class="info-section-italic">
+                The measurements on this site show that minification isn't just a "nice to have" — it's a substantial optimization 
+                that can dramatically improve load times, especially on slower connections. When choosing libraries, both architecture 
+                AND delivery optimization matter.
+            </p>
+            
+            <p>
+                <strong>Note on methodology:</strong> All test pages are intentionally written in raw JavaScript without any 
+                framework dependencies. This attempts to eliminate any potential cache bias that could occur from using the libraries 
+                being tested to build the test harness itself, trying to show clean and accurate measurements.
+            </p>
+        </div>
+    </div>
+</body>
+</html>

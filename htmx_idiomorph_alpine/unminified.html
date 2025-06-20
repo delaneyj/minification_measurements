@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTMX + Idiomorph + Alpine.js Unminified Test</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <script>
+        window.loadStartTime = performance.now();
+        window.librariesLoaded = 0;
+        window.totalLibraries = 3;
+        
+        function checkAllLoaded() {
+            window.librariesLoaded++;
+            if (window.librariesLoaded === window.totalLibraries) {
+                window.loadEndTime = performance.now();
+                window.totalLoadTime = window.loadEndTime - window.loadStartTime;
+                
+                // Send timing data to parent window
+                if (window.parent !== window) {
+                    window.parent.postMessage({
+                        type: 'loadComplete',
+                        version: 'unminified',
+                        time: window.totalLoadTime
+                    }, '*');
+                }
+            }
+        }
+    </script>
+    <script src="../js/htmx.js"></script>
+    <script src="../js/idiomorph.js"></script>
+    <script defer src="../js/alpine.js"></script>
+    <script>
+        // HTMX loaded
+        htmx.onLoad(function() {
+            checkAllLoaded();
+        });
+        
+        // Idiomorph loads synchronously, so count it
+        checkAllLoaded();
+        
+        // Alpine.js loaded (defer attribute)
+        document.addEventListener('alpine:init', () => {
+            checkAllLoaded();
+        });
+    </script>
+</head>
+<body class="test-page">
+        <h2>All Libraries Loaded (Unminified)</h2>
+        <p>This page loads unminified versions of HTMX, Idiomorph, and Alpine.js</p>
+        
+        <div class="stats-container-spaced">
+            <h3>Library Status:</h3>
+            <ul>
+                <li>HTMX: <span class="status-loaded">✓ Loaded</span> (161.8 KB)</li>
+                <li>Idiomorph: <span class="status-loaded">✓ Loaded</span> (36.5 KB)</li>
+                <li>Alpine.js: <span class="status-loaded">✓ Loaded</span> (107 KB)</li>
+            </ul>
+            <p><strong>Total:</strong> 305.5 KB</p>
+        </div>
+        
+        <!-- Alpine.js test -->
+        <div x-data="{ message: 'Alpine.js is working!' }" class="test-demo">
+            <p x-text="message"></p>
+        </div>
+</body>
+</html>

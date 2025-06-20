@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTMX Load Time Comparison - Minified vs Unminified</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%2358a6ff'/><text x='16' y='24' text-anchor='middle' fill='black' font-family='Arial' font-size='20' font-weight='bold'>H</text></svg>">
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+    <div class="warning-banner warning-banner-compact">
+        ⚡ Testing Tip: Disable cache & throttle to "Slow 4G" in DevTools for realistic results
+    </div>
+    <div class="container">
+        <div class="back-button">
+            <a href="../" class="btn btn-secondary">← Back to Library List</a>
+        </div>
+        <h1>HTMX Load Time Comparison</h1>
+        <p class="subtitle">Measuring the performance difference between minified and unminified HTMX</p>
+        
+        <div class="controls">
+            <button id="runTest" class="btn btn-primary">Run Load Time Test</button>
+            <button id="clearResults" class="btn btn-secondary">Clear Results</button>
+        </div>
+
+        <div class="stats-container">
+            <div class="stat-card">
+                <h3>File Sizes - Real Server, Real World Numbers</h3>
+                <div class="file-info">
+                    <p><strong>Minified:</strong> <span id="minifiedSize">59.0 KB</span> (15.0 KB brotli)</p>
+                    <p><strong>Unminified:</strong> <span id="unminifiedSize">161.8 KB</span> (30.0 KB brotli)</p>
+                    <p><strong>Size Reduction:</strong> <span id="sizeReduction">63.5%</span> (50.0% brotli)</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="results-container">
+            <div class="result-section">
+                <h2>Minified Version</h2>
+                <div class="iframe-container">
+                    <iframe id="minifiedFrame" src="minified.html"></iframe>
+                </div>
+                <div class="timing-info">
+                    <p>Load Time: <span id="minifiedTime" class="time">-</span></p>
+                </div>
+            </div>
+            
+            <div class="result-section">
+                <h2>Unminified Version</h2>
+                <div class="iframe-container">
+                    <iframe id="unminifiedFrame" src="unminified.html"></iframe>
+                </div>
+                <div class="timing-info">
+                    <p>Load Time: <span id="unminifiedTime" class="time">-</span></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="comparison-summary" id="summary" style="display: none;">
+            <h3>Performance Summary</h3>
+            <p>The minified version loaded <span id="speedMultiple">-</span>x faster</p>
+            <p>Time saved: <span id="timeSaved">-</span> ms</p>
+        </div>
+
+        <div class="test-results" id="testResults">
+            <h3>Test History</h3>
+            <table id="resultsTable">
+                <thead>
+                    <tr>
+                        <th>Test #</th>
+                        <th>Minified (ms)</th>
+                        <th>Unminified (ms)</th>
+                        <th>Difference (ms)</th>
+                        <th>Speed Multiple</th>
+                    </tr>
+                </thead>
+                <tbody id="resultsBody">
+                </tbody>
+            </table>
+            <div class="average-results" id="averageResults" style="display: none;">
+                <h4>Average Results</h4>
+                <p>Average minified load time: <span id="avgMinified">-</span> ms</p>
+                <p>Average unminified load time: <span id="avgUnminified">-</span> ms</p>
+                <p>Average speed: <span id="avgImprovement">-</span>x</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/performance-test.js"></script>
+</body>
+</html>

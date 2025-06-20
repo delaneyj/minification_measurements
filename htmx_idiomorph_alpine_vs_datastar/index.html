@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTMX+Idiomorph+Alpine vs Datastar Comparison</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%233498db'/><text x='16' y='24' text-anchor='middle' fill='white' font-family='Arial' font-size='20' font-weight='bold'>vs</text></svg>">
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+    <div class="warning-banner warning-banner-compact">
+        ⚡ Testing Tip: Disable cache & throttle to "Slow 4G" in DevTools for realistic results
+    </div>
+    <div class="container">
+        <div class="back-button">
+            <a href="../" class="btn btn-secondary">← Back to Library List</a>
+        </div>
+        <h1>Stack Comparison: HTMX+Idiomorph+Alpine vs Datastar</h1>
+        <p class="subtitle">Comparing unminified HTMX stack (3 libraries) against minified Datastar (all-in-one)</p>
+        
+        <div class="info-box-blue">
+            <h3>Why Compare Unminified vs Minified?</h3>
+            <p>
+                There's a claim in the developer community that minification "doesn't matter" and is "a wash" in real-world usage. 
+                This comparison directly challenges that assertion by showing the <strong>holistic real-world consequences</strong> 
+                of architectural and delivery decisions combined.
+            </p>
+            <p>
+                When HTMX is distributed unminified (as currently advocated), and you need to add Alpine.js and Idiomorph 
+                for a complete solution, you're looking at <strong>305.3 KB (57.0 KB brotli)</strong> of JavaScript.
+            </p>
+            <p>
+                Compare this to Datastar — a single, minified library that provides similar functionality at just 
+                <strong>39.1 KB (10.2 KB brotli)</strong>. That's an <strong>87.2% reduction</strong> in raw size 
+                and <strong>82.1% reduction</strong> even with compression. <em>This isn't just theory — it's measurable, 
+                real-world impact on load times, especially on mobile networks.</em>
+            </p>
+        </div>
+        
+        <div class="controls">
+            <button id="runTest" class="btn btn-primary">Run Load Time Test</button>
+            <button id="clearResults" class="btn btn-secondary">Clear Results</button>
+        </div>
+
+        <div class="stats-container">
+            <div class="stat-card">
+                <h3>Size Comparison - Real Server, Real World Numbers</h3>
+                <div class="file-info">
+                    <p><strong>HTMX Stack (Unminified):</strong> <span id="stackSize">305.3 KB</span> (57.0 KB brotli)</p>
+                    <p><strong>Datastar (Minified):</strong> <span id="datastarSize">39.1 KB</span> (10.2 KB brotli)</p>
+                    <p><strong>Size Reduction:</strong> <span id="sizeReduction">87.2%</span> (82.1% brotli)</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="stats-container stats-container-spaced">
+            <div class="stat-card">
+                <h3>Library Details</h3>
+                <div class="file-info">
+                    <p><strong>HTMX Stack (Unminified):</strong></p>
+                    <ul>
+                        <li>HTMX: 161.8 KB (30.0 KB brotli)</li>
+                        <li>Idiomorph: 36.5 KB (6.5 KB brotli)</li>
+                        <li>Alpine.js: 107 KB (20.5 KB brotli)</li>
+                    </ul>
+                    <p><strong>Datastar (Minified):</strong> Single 39.1 KB file (10.2 KB brotli) with similar functionality</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="results-container">
+            <div class="result-section">
+                <h2>HTMX + Idiomorph + Alpine.js</h2>
+                <p class="result-section-subtitle">Unminified versions</p>
+                <div class="iframe-container">
+                    <iframe id="stackFrame" src="htmx_stack.html"></iframe>
+                </div>
+                <div class="timing-info">
+                    <p>Load Time: <span id="stackTime" class="time">-</span></p>
+                </div>
+            </div>
+            
+            <div class="result-section">
+                <h2>Datastar</h2>
+                <p class="result-section-subtitle">Minified all-in-one solution</p>
+                <div class="iframe-container">
+                    <iframe id="datastarFrame" src="datastar.html"></iframe>
+                </div>
+                <div class="timing-info">
+                    <p>Load Time: <span id="datastarTime" class="time">-</span></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="comparison-summary" id="summary" style="display: none;">
+            <h3>Performance Summary</h3>
+            <p>Datastar loaded <span id="speedMultiple">-</span>x faster</p>
+            <p>Time saved: <span id="timeSaved">-</span> ms</p>
+        </div>
+
+        <div class="test-results" id="testResults">
+            <h3>Test History</h3>
+            <table id="resultsTable">
+                <thead>
+                    <tr>
+                        <th>Test #</th>
+                        <th>HTMX Stack (ms)</th>
+                        <th>Datastar (ms)</th>
+                        <th>Difference (ms)</th>
+                        <th>Speed Multiple</th>
+                    </tr>
+                </thead>
+                <tbody id="resultsBody">
+                </tbody>
+            </table>
+            <div class="average-results" id="averageResults" style="display: none;">
+                <h4>Average Results</h4>
+                <p>Average HTMX stack load time: <span id="avgStack">-</span> ms</p>
+                <p>Average Datastar load time: <span id="avgDatastar">-</span> ms</p>
+                <p>Average speed: <span id="avgImprovement">-</span>x</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/performance-test-comparison.js"></script>
+</body>
+</html>
